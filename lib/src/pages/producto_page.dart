@@ -131,7 +131,10 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
-  void _submit() {
+  void _submit() async {
+
+
+
     if (!formKey.currentState.validate()) return;
 
     // formulario valido
@@ -139,6 +142,10 @@ class _ProductPageState extends State<ProductPage> {
     
     
     setState(() { _guardando = true; });
+
+    if ( _image != null ){
+      producto.fotoUrl = await productoProvider.subirImagen(_image);
+    }
     
     if (producto.id == null) {
       productoProvider.crearProducto(producto);
@@ -165,7 +172,12 @@ class _ProductPageState extends State<ProductPage> {
 
   Widget _mostrarFoto(){
     if ( producto.fotoUrl != null ){
-      return Container();
+      return FadeInImage(
+        image: NetworkImage( producto.fotoUrl ),
+        placeholder: AssetImage('assets/jar-loading.gif'),
+        height: 300.0,
+        fit: BoxFit.contain
+      );
     } else {
       return Image(
         image: AssetImage(_image?.path ?? 'assets/no-image.png'),
@@ -188,13 +200,18 @@ class _ProductPageState extends State<ProductPage> {
     final pickedFile = await _picker.getImage(
       source: source
     );
+
+    if (pickedFile != null) {
+      _image = File(pickedFile.path);
+    } else {
+      print('No image selected.');
+    }
+    
+    if ( _image != null ) {
+      producto.fotoUrl = null;
+    }
     
     setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
     });
   }
 
