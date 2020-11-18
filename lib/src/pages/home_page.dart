@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:formvalidation/src/blocs/provider.dart';
+// import 'package:formvalidation/src/blocs/provider.dart';
 import 'package:formvalidation/src/providers/productos_provider.dart';
 import 'package:formvalidation/src/models/producto_model.dart';
 
@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    final bloc = Provider.of(context);
+    // final bloc = Provider.of(context);
 
 
     return Scaffold(
