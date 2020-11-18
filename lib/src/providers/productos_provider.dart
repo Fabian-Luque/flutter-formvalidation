@@ -50,8 +50,9 @@ class ProductosProvider {
 
     final Map<String, dynamic> decodedData = json.decode(resp.body);
     final List<ProductoModel> productos = new List();
+
     if ( decodedData == null ) return [];
-      
+    if ( decodedData['error'] != null) return [];
     
     decodedData.forEach((id, prod) { 
 
